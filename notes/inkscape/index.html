@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="keywords" content="inkscape, vector graphics, svg,
+latex" />
+  <title>Notes on Inkscape</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Notes on Inkscape</h1>
+</header>
+<h1 id="arrow0">Arrow0</h1>
+<p><img align="right" width=128 style="border:0px; padding:15px" src="./arrow0.svg"/></p>
+<p>I don’t like the default (arrow) markers bundled with Inkscape, so I
+made an arrow called “Arrow0”<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> following <a
+href="https://www.youtube.com/watch?v=MgT-0q0wjLo">this video</a>
+(example image on the right). To use Arrow0, merge the SVG snippet below
+with the global markers file. To use this with the Inkscape AppImage,
+first extract the AppImage using <code>--appimage-extract</code> and
+locate the <code>markers.svg</code> file under
+<code>squashfs-root</code>. Repackage with appimagetool if required.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">  Merge with the global markers.svg located at:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">    /usr/share/inkscape/markers/markers.svg     (GNU/Linux)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    ...\Program Files\Inkscape\share\markers    (Windows)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">--&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">marker</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ot">  style=</span><span class="st">&quot;overflow:visible&quot;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ot">  id=</span><span class="st">&quot;Arrow0&quot;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ot">  refX=</span><span class="st">&quot;0&quot;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ot">  refY=</span><span class="st">&quot;0&quot;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ot">  orient=</span><span class="st">&quot;auto-start-reverse&quot;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ot">  inkscape:stockid=</span><span class="st">&quot;Arrow0&quot;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ot">  markerWidth=</span><span class="st">&quot;1&quot;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ot">  markerHeight=</span><span class="st">&quot;1&quot;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ot">  viewBox=</span><span class="st">&quot;0 0 1 1&quot;</span>&gt;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">path</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ot">    style=</span><span class="st">&quot;fill:context-stroke;fill-rule:evenodd;stroke:none&quot;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ot">    transform=</span><span class="st">&quot;scale(1.0) translate(0,0) rotate(180)&quot;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ot">    id=</span><span class="st">&quot;arrow0&quot;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ot">    d=</span><span class="st">&quot;m4.16 2.49c-2.7-1.29-5.5-1.98-8.33-2.49 2.83-0.514 5.63-1.21 8.33-2.49z&quot;</span>/&gt;</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">marker</span>&gt;</span></code></pre></div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Inkscape’s default solid arrows are labelled Arrow1,
+Arrow2, etc.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<p id="date">Last updated: 2022-06-28 12:00 EDT</p>
+</body>
+</html>

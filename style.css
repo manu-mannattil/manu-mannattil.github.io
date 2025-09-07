@@ -1,0 +1,236 @@
+body {
+  font-family: sans-serif;
+  line-height: 1.5em;
+  margin: 0em auto;
+  max-width: 42em;
+  padding: 1.5em 0.75em 2.5em 0.75em;
+  word-wrap: break-word;
+}
+
+h1, h2, h3 {
+  line-height: 1.5em;
+}
+
+h1 {
+  margin: 1.5em 0em 0em 0em;
+  font-size: 1.4em;
+}
+
+h1.title {
+  font-size: 1.6em;
+  margin: 2em 0em 1em 0em;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+h3 {
+  font-size: 1.0em;
+}
+
+hr {
+  background-color: #666;
+  border: 0 none;
+  height: 1px;
+  margin: 1.5em 0em;
+  max-width: 10em;
+}
+
+section.footnotes {
+  font-size: 90%;
+}
+
+#date {
+  color: #666;
+  font-size: 90%;
+  font-style: italic;
+  margin: 3em 0em;
+  text-align: center;
+}
+
+#note {
+  background-color: #fc0;
+  border: 1px solid #f90;
+  font-weight: bold;
+  padding: 0em 1em;
+  text-align: center;
+  color: #000;
+}
+
+#contents {
+  background: #ffc;
+  border: 1px solid #999;
+  padding: 0em 1em;
+  margin: 1em 0em;
+}
+
+img {
+  border: 1px solid #666;
+  max-width: 100%;
+}
+
+a {
+  color: #03c;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a.footnote-ref {
+  line-height: 0em;
+}
+
+li {
+  margin: 0.25em 0;
+}
+
+pre, code {
+  background: #eee;
+  border: 1px solid #ccc;
+  font-family: monospace;
+}
+
+pre {
+  line-height: 1.4em;
+  max-height: 20em;
+  overflow: auto;
+  padding: 0.5em 1em;
+}
+
+pre > code {
+  border: none;
+  padding: 0em;
+}
+
+code {
+  padding: 1px 0.25em;
+}
+
+blockquote {
+  border-left: 0.25em solid #ccc;
+  color: #666;
+  margin-left: 0em;
+  padding-left: 1em;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  overflow: auto;
+  font-size: 95%;
+}
+
+th {
+  background-color: #eee;
+  font-weight: bold;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.35em 0.70em;
+}
+
+tr:nth-child(2n) {
+  background-color: #eee;
+}
+
+.pubul {
+  border-bottom: 1px dotted;
+}
+
+p.hangpar {
+  text-indent: -28px;
+  padding-left: 28px;
+}
+
+code span.co { color: #666; } /* Comment */
+code span.cv { color: #666; } /* CommentVar */
+
+@media print{
+  body{
+    max-width: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color: #fff;
+    background: #000;
+  }
+
+  a {
+    color: #fc3;
+  }
+
+  a:visited {
+    color: inherit;
+  }
+
+  pre, code {
+    background: #333;
+    border: 1px solid #666;
+  }
+
+  blockquote {
+    color: #999;
+    border-left: 0.25em solid #333;
+  }
+
+  th {
+    background-color: #333;
+  }
+
+  th, td {
+    border: 1px solid #666;
+  }
+
+  tr:nth-child(2n) {
+    background-color: #333;
+  }
+
+  #contents {
+    background: #033;
+  }
+
+  code span.co { color: #999; } /* Comment */
+  code span.cv { color: #999; } /* CommentVar */
+}
+
+/* Pandoc defaults: https://github.com/jgm/pandoc/blob/master/data/templates/styles.html */
+
+span.smallcaps {
+  font-variant: small-caps;
+}
+
+span.underline {
+  text-decoration: underline;
+}
+
+div.column {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+}
+
+div.hanging-indent {
+  margin-left: 1.5em;
+  text-indent: -1.5em;
+}
+
+ul.task-list {
+  list-style: none;
+}
+
+.display.math {
+  display: block;
+  text-align: center;
+  margin: 0.5em auto;
+}

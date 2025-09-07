@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="keywords" content="vim, tex, latex, editor" />
+  <title>Notes on Vim</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Notes on Vim</h1>
+</header>
+<h1 id="stripping-tex-commands">Stripping TeX commands</h1>
+<p>Consider the following TeX snippet:</p>
+<pre><code>\hl{this is \emph{emphasized} and highlighted}</code></pre>
+<p>Now, suppose you want to remove the outer highlight, i.e.,
+<code>\hl{ ... }</code>.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> One way to accomplish this in Vim is
+to use a rudimentary substitute command
+<code>:%s/\\hl{\(.*\)}/\1/g</code>, which would do the trick since Vim
+regular expressions are greedy. But this will not handle the following
+snippet</p>
+<pre><code>\hl{this is \emph{emphasized}} and \hl{highlighted}</code></pre>
+<p>which would be turned into</p>
+<pre><code>this is \emph{emphasized}} and \hl{highlighted</code></pre>
+<p>which is obviously not what we want. The issue is that you need to
+match braces and <a
+href="https://stackoverflow.com/q/546433">conventional regular
+expressions</a> are not suited for such a task. A <a
+href="https://tex.stackexchange.com/a/298023">possible alternative</a>
+is to use Vim macros, but that can also get clunky. A better method,
+however, is to programmatically do the commands that you would record
+into a macro, by writing a function instead. For my purposes, the below
+function (and the associated command) seems to work well and it strips
+the <code>\hl{ ... }</code> command without issues.</p>
+<pre><code>function! s:texstrip(cmd)
+  let winview = winsaveview()
+  let i = 1 &quot; to prevent potential infinite loops
+  while search(&#39;\V\\&#39; . a:cmd . &#39;{&#39;, &#39;w&#39;) &amp;&amp; i &lt;= 1000
+    let m = getpos(&#39;.&#39;)
+    &quot; Move to open brace, find matching brace, and then cut
+    &quot; to black hole register.
+    normal! f{%&quot;_x
+    &quot; Move back and delete to open brace.
+    call cursor(m[1], m[2])
+    normal! &quot;_df{
+    let i = i + 1
+  endwhile
+  call winrestview(winview)
+endfunction
+
+command! -nargs=1 TeXStrip silent call s:texstrip(&lt;f-args&gt;)</code></pre>
+<p>Put this in <code>~/.vim/after/ftplugin/tex.vim</code>. Using the
+TeXStrip command, <code>\hl{ ... }</code> can now be removed via
+<code>:TeXStrip hl</code>. The general usage is
+<code>:TeXStrip {pattern}</code>, where <code>{pattern}</code> is
+treated as a “very nomagic” pattern.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The <code>\hl{ ... }</code> highlight command used here
+is a nonstandard command, but it’s also defined by the <a
+href="https://www.ctan.org/pkg/soul">soul</a> package.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<p id="date">Last updated: 2022-04-22 12:00 EDT</p>
+</body>
+</html>

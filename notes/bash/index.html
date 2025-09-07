@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="keywords" content="bash" />
+  <title>Notes on Bash</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Notes on Bash</h1>
+</header>
+<h1 id="prevent-bash-ssh-completion-from-using-hosts-entries">Prevent
+Bash SSH completion from using hosts entries</h1>
+<p>By default, the <a
+href="https://github.com/scop/bash-completion/blob/master/completions/ssh">completion
+helper</a> for SSH from the <a
+href="https://github.com/scop/bash-completion/">Bash completion
+project</a> populates the hostname suggestions with entries from the
+hosts file located at <code>/etc/hosts</code>. This may not be very
+convenient if you use the hosts file to <a
+href="https://github.com/StevenBlack/hosts">block ads</a>. In such a
+case there would be a very large number of entries in
+<code>/etc/hosts</code>, none of which would be a host you would want to
+SSH into.</p>
+<p>The completion helper for SSH gets the host names from the <a
+href="https://github.com/scop/bash-completion/blob/36ceb272ddf7ef70b7fa79c5c3686080b1510054/bash_completion#L1920-L1934"><code>_known_hosts_real</code>
+utility function</a>. To prevent this function from using
+<code>/etc/hosts</code> entries, set the environment variable
+<code>BASH_COMPLETION_KNOWN_HOSTS_WITH_HOSTFILE</code> to an empty
+value. However, note that older versions of
+<code>_known_hosts_real</code> used the environment variable
+<code>COMP_KNOWN_HOSTS_WITH_HOSTFILE</code> for the same purpose.</p>
+<pre><code>export COMP_KNOWN_HOSTS_WITH_HOSTFILE=
+export BASH_COMPLETION_KNOWN_HOSTS_WITH_HOSTFILE=</code></pre>
+<h1 id="cd-with-automatic-sourcing-of-.env-and-.env.leave-files">cd with
+automatic sourcing of .env and .env.leave files</h1>
+<p>This is basically a leaner NIH implementation of <a
+href="https://github.com/hyperupcall/autoenv">autoenv</a>. The below
+snippet (which should be put in an appropriate startup file, e.g.,
+<code>~/.bashrc</code>) makes a cd wrapper such that if you cd into a
+directory containing an <code>.env</code> file, it will automatically be
+sourced. Similarly, if the directory contains an <code>.env.leave</code>
+file, it will be sourced whenever the current directory is no longer a
+child directory of the root directory containing the <code>.env</code>
+file. (In this sense, my implementation is different from that of
+autoenv’s, which sources <code>.env.leave</code> as soon as you change
+the directory.) Of course, my implementation has security risks as
+<em>any</em> <code>.env</code> file that’s encountered is sourced.
+Nested environments, symlinked directories, etc., can also lead to
+unwanted behavior.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd()</span> <span class="kw">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">builtin</span> cd <span class="st">&quot;</span><span class="va">$@</span><span class="st">&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">then</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-f</span> <span class="st">&quot;.env&quot;</span> <span class="kw">]]</span> <span class="kw">&amp;&amp;</span> <span class="kw">[[</span> <span class="st">&quot;</span><span class="va">$PWD</span><span class="st">&quot;</span> <span class="ot">!=</span> <span class="st">&quot;</span><span class="va">$AUTOENV_ROOT</span><span class="st">&quot;</span> <span class="kw">]]</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">then</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">source</span> <span class="st">&quot;.env&quot;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">export</span> <span class="va">AUTOENV_ROOT</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$PWD</span><span class="st">&quot;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-f</span> <span class="st">&quot;.env.leave&quot;</span> <span class="kw">]]</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">then</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                <span class="bu">export</span> <span class="va">AUTOENV_LEAVE</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$PWD</span><span class="st">/.env.leave&quot;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                <span class="bu">unset</span> <span class="at">-v</span> <span class="va">AUTOENV_LEAVE</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">fi</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">fi</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># If there&#39;s an .env.leave file, and we&#39;re not in a child</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># directory of the directory containing the .env file, then</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># source the .env.leave file.</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">[[</span> <span class="st">&quot;</span><span class="va">$AUTOENV_LEAVE</span><span class="st">&quot;</span> <span class="kw">]]</span> <span class="kw">&amp;&amp;</span> <span class="kw">[[</span> <span class="st">&quot;</span><span class="va">$PWD</span><span class="st">&quot;</span>/ <span class="ot">!=</span> <span class="st">&quot;</span><span class="va">$AUTOENV_ROOT</span><span class="st">&quot;</span>/<span class="pp">*</span> <span class="kw">]]</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">then</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="bu">source</span> <span class="st">&quot;</span><span class="va">$AUTOENV_LEAVE</span><span class="st">&quot;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            <span class="bu">unset</span> <span class="at">-v</span> <span class="va">AUTOENV_ROOT</span> <span class="va">AUTOENV_LEAVE</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">fi</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">$?</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div>
+<p id="date">Last updated: 2022-12-13 17:00 EST</p>
+</body>
+</html>
