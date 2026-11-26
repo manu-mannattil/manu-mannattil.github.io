@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="bash">
+  <title>Notes on Bash</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%E2%9A%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="header">
+  <div class="root">Manu Mannattil</div>
+  <div class="navigation" role="navigation" aria-label="Main navigation">
+    <a href="/">Home</a>
+    •
+    <a href="https://github.com/manu-mannattil">Code</a>
+    •
+    <a href="/notes">Notes</a>
+    •
+    <a href="/pub">Publications</a>
+  </div>
+</div>
+<div id="content">
+  <h1 class="title">Notes on Bash</h1>
+  <h1 id="prevent-bash-ssh-completion-from-using-hosts-entries">Prevent Bash SSH completion from using hosts entries</h1>
+  <p>By default, the <a href="https://github.com/scop/bash-completion/blob/master/completions/ssh">completion helper</a> for SSH from the <a href="https://github.com/scop/bash-completion/">Bash completion project</a> populates the hostname suggestions with entries from the hosts file located at <code>/etc/hosts</code>. This may not be very convenient if you use the hosts file to <a href="https://github.com/StevenBlack/hosts">block ads</a>. In such a case there would be a very large number of entries in <code>/etc/hosts</code>, none of which would be a host you would want to SSH into.</p>
+  <p>The completion helper for SSH gets the host names from the <a href="https://github.com/scop/bash-completion/blob/36ceb272ddf7ef70b7fa79c5c3686080b1510054/bash_completion#L1920-L1934"><code>_known_hosts_real</code> utility function</a>. To prevent this function from using <code>/etc/hosts</code> entries, set the environment variable <code>BASH_COMPLETION_KNOWN_HOSTS_WITH_HOSTFILE</code> to an empty value. However, note that older versions of <code>_known_hosts_real</code> used the environment variable <code>COMP_KNOWN_HOSTS_WITH_HOSTFILE</code> for the same purpose.</p>
+  <pre><code>export COMP_KNOWN_HOSTS_WITH_HOSTFILE=
+export BASH_COMPLETION_KNOWN_HOSTS_WITH_HOSTFILE=</code></pre>
+  <h1 id="cd-with-automatic-sourcing-of-.env-and-.env.leave-files">cd with automatic sourcing of .env and .env.leave files</h1>
+  <p>This is basically a leaner NIH implementation of <a href="https://github.com/hyperupcall/autoenv">autoenv</a>. The below snippet (which should be put in an appropriate startup file, e.g., <code>~/.bashrc</code>) makes a cd wrapper such that if you cd into a directory containing an <code>.env</code> file, it will automatically be sourced. Similarly, if the directory contains an <code>.env.leave</code> file, it will be sourced whenever the current directory is no longer a child directory of the root directory containing the <code>.env</code> file. (In this sense, my implementation is different from that of autoenv’s, which sources <code>.env.leave</code> as soon as you change the directory.) Of course, my implementation has security risks as <em>any</em> <code>.env</code> file that’s encountered is sourced. Nested environments, symlinked directories, etc., can also lead to unwanted behavior.</p>
+  <pre class="sh"><code>cd() {
+    if builtin cd &quot;$@&quot;
+    then
+        if [[ -f &quot;.env&quot; ]] &amp;&amp; [[ &quot;$PWD&quot; != &quot;$AUTOENV_ROOT&quot; ]]
+        then
+            source &quot;.env&quot;
+            export AUTOENV_ROOT=&quot;$PWD&quot;
+
+            if [[ -f &quot;.env.leave&quot; ]]
+            then
+                export AUTOENV_LEAVE=&quot;$PWD/.env.leave&quot;
+            else
+                unset -v AUTOENV_LEAVE
+            fi
+        fi
+
+        # If there&#39;s an .env.leave file, and we&#39;re not in a child
+        # directory of the directory containing the .env file, then
+        # source the .env.leave file.
+        if [[ &quot;$AUTOENV_LEAVE&quot; ]] &amp;&amp; [[ &quot;$PWD&quot;/ != &quot;$AUTOENV_ROOT&quot;/* ]]
+        then
+            source &quot;$AUTOENV_LEAVE&quot;
+            unset -v AUTOENV_ROOT AUTOENV_LEAVE
+        fi
+
+        return 0
+    else
+        return $?
+    fi
+}</code></pre>
+  <p id="date">Last updated: 2022-12-13 17:00 EST</p>
+</div>
+</body>
+</html>

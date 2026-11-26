@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="inkscape, vector graphics, svg, latex">
+  <title>Notes on Inkscape</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%E2%9A%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="header">
+  <div class="root">Manu Mannattil</div>
+  <div class="navigation" role="navigation" aria-label="Main navigation">
+    <a href="/">Home</a>
+    •
+    <a href="https://github.com/manu-mannattil">Code</a>
+    •
+    <a href="/notes">Notes</a>
+    •
+    <a href="/pub">Publications</a>
+  </div>
+</div>
+<div id="content">
+  <h1 class="title">Notes on Inkscape</h1>
+  <h1 id="arrow0">Arrow0</h1>
+  <p><img align="right" width=128 style="border:0px; padding:15px" src="./arrow0.svg"/></p>
+  <p>I don’t like the default (arrow) markers bundled with Inkscape, so I made an arrow called “Arrow0”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> following <a href="https://www.youtube.com/watch?v=MgT-0q0wjLo">this video</a> (example image on the right). To use Arrow0, merge the SVG snippet below with the global markers file. To use this with the Inkscape AppImage, first extract the AppImage using <code>--appimage-extract</code> and locate the <code>markers.svg</code> file under <code>squashfs-root</code>. Repackage with appimagetool if required.</p>
+  <pre class="xml"><code>&lt;!--
+  Merge with the global markers.svg located at:
+
+    /usr/share/inkscape/markers/markers.svg     (GNU/Linux)
+    ...\Program Files\Inkscape\share\markers    (Windows)
+--&gt;
+
+&lt;marker
+  style=&quot;overflow:visible&quot;
+  id=&quot;Arrow0&quot;
+  refX=&quot;0&quot;
+  refY=&quot;0&quot;
+  orient=&quot;auto-start-reverse&quot;
+  inkscape:stockid=&quot;Arrow0&quot;
+  markerWidth=&quot;1&quot;
+  markerHeight=&quot;1&quot;
+  viewBox=&quot;0 0 1 1&quot;&gt;
+  &lt;path
+    style=&quot;fill:context-stroke;fill-rule:evenodd;stroke:none&quot;
+    transform=&quot;scale(1.0) translate(0,0) rotate(180)&quot;
+    id=&quot;arrow0&quot;
+    d=&quot;m4.16 2.49c-2.7-1.29-5.5-1.98-8.33-2.49 2.83-0.514 5.63-1.21 8.33-2.49z&quot;/&gt;
+&lt;/marker&gt;</code></pre>
+  <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+  <hr />
+  <ol>
+  <li id="fn1"><p>Inkscape’s default solid arrows are labelled Arrow1, Arrow2, etc.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+  </ol>
+  </section>
+  <p id="date">Last updated: 2022-06-28 12:00 EDT</p>
+</div>
+</body>
+</html>

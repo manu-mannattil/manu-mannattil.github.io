@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="196" height="196" version="1.1" viewBox="0 0 196 196" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.33 0 0 1.33 -22 -22)">
+    <path d="m162 90c0 40-32.5 72.5-72.5 72.5s-72.5-32.5-72.5-72.5 32.5-72.5 72.5-72.5 72.5 32.5 72.5 72.5z" style="fill:#dfeaf4;stroke-width:2;stroke:#000"/>
+    <path d="m112 91.7c16.3 19.3 17.6 42.2 14.5 60.8" style="fill:none;stroke-width:2;stroke:#000"/>
+    <path d="m114 101c-1.52-5.78-4.09-10.9-6.97-15.9 4.44 3.65 9.12 7.02 14.6 9.49z" style="fill-rule:evenodd"/>
+    <path d="m108 62c7.51-15.8 16.3-25.3 25.7-30.2" style="fill:none;stroke-width:2;stroke:#000"/>
+    <path d="m116 56.7c-4.65 3.77-8.3 8.24-11.6 12.9 1.5-5.55 2.64-11.2 2.65-17.2z" style="fill-rule:evenodd"/>
+    <path d="m119 76.6c18.8 1.6 33.1 6.56 43.9 13.4" style="fill:none;stroke-width:2;stroke:#000"/>
+    <path d="m126 82.2c-5.16-3.03-10.6-4.88-16.2-6.38 5.73-0.543 11.4-1.46 17-3.55z" style="fill-rule:evenodd"/>
+    <path d="m96.1 93.9c-13.6 29.5-36 42-58.2 46.3" style="fill:none;stroke-width:2;stroke:#000"/>
+    <path d="m88.1 99.4c4.6-3.83 8.2-8.34 11.5-13.1-1.43 5.57-2.5 11.2-2.44 17.2z" style="fill-rule:evenodd"/>
+    <path d="m90.7 65.9c-16.5-13.8-28.4-26.8-36.8-38.6" style="fill:none;stroke-width:2;stroke:#000"/>
+    <path d="m87.5 56.8c2.49 5.44 5.9 10.1 9.59 14.5-5-2.84-10.2-5.36-16-6.86z" style="fill-rule:evenodd"/>
+    <path d="m85.8 79.7c-26.9-0.18-47.8-6.31-63.7-14.8" style="fill:none;stroke-width:2;stroke:#000"/>
+    <path d="m77.5 74.6c5.38 2.62 11 4.04 16.6 5.09-5.66 0.989-11.3 2.34-16.7 4.87z" style="fill-rule:evenodd"/>
+  </g>
+  <circle cx="113" cy="82.3" r="4.69"/>
+</svg>
