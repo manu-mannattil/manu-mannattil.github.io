@@ -19,12 +19,20 @@
     •
     <a href="/notes">Notes</a>
     •
-    <a href="/pub">Publications</a>
+    <a href="/publications">Publications</a>
   </div>
 </div>
 <div id="content">
   <h1 class="title">Notes on Vim</h1>
-  <p>I’ve been using <a href="https://www.vim.org">Vim</a> as my sole text editor for almost two decades now. I use it to write all kinds of text and not just code. For email, I’ve been a happy <a href="https://en.wikipedia.org/wiki/Mutt_(email_client)">Mutt</a> user, which lets me compose messages in Vim. And <a href="https://duckduckgo.com/?q=overleaf+git+integration">Git integration</a> makes collaborative LaTeX on Overleaf bearable by letting me avoid its web editor altogether. My fingers have developed such muscle memory for vi-style keybindings that I’ve configured other programs I use to have them whenever possible.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>I’ve been using <a href="https://www.vim.org">Vim</a> as my sole text editor for almost two decades now. I use it to write all kinds of text and not just code. For email, I’ve been a happy <a href="https://en.wikipedia.org/wiki/Mutt_(email_client)">Mutt</a> user, which lets me compose messages in Vim. And <a href="https://duckduckgo.com/?q=overleaf+git+integration">Git integration</a> makes collaborative LaTeX on Overleaf bearable by letting me avoid its web editor altogether. My fingers have developed such muscle memory for vi-style keybindings that I’ve configured other programs I use to have them whenever possible.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+  <div class="contents">
+    <h2 id="contents-title">Contents</h2>
+    <nav id="contents" role="doc-toc" aria-labelledby="contents-title">
+<ul>
+<li><a href="#stripping-tex-commands" id="toc-stripping-tex-commands">Stripping TeX commands</a></li>
+</ul>
+    </nav>
+  </div>
   <h1 id="stripping-tex-commands">Stripping TeX commands</h1>
   <p>Consider the following TeX snippet:</p>
   <pre><code>\hl{this is \emph{emphasized} and highlighted}</code></pre>
@@ -58,7 +66,7 @@ command! -nargs=1 TeXStrip silent call s:texstrip(&lt;f-args&gt;)</code></pre>
   <li id="fn2"><p>The <code>\hl{ ... }</code> highlight command used here is a nonstandard command, but it’s also defined by the <a href="https://www.ctan.org/pkg/soul">soul</a> package.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
   </ol>
   </section>
-  <p id="date">Last updated: 2022-04-22 12:00 EDT</p>
+  <p id="date">Last updated: 2026-11-27 14:00 EST</p>
 </div>
 </body>
 </html>

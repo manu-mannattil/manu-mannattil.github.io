@@ -2,8 +2,8 @@
 
 html {
   background: #faf9f6;
-  color-scheme: light;
   color: #252a30;
+  color-scheme: light;
   overflow-y: scroll;
   scrollbar-color: #6c7b85 #eef2f4;
 }
@@ -13,21 +13,20 @@ body {
     "TeX Gyre Heros", "Helvetica Neue", FreeSans, Arial, sans-serif;
   font-size: 100%;
   line-height: 1.65;
-  padding: 1.5em 1em 3em;
+  margin: 0;
   word-wrap: break-word;
 }
 
 ::selection {
-  background: #c4deef;
-  color: #183b52;
+  background: #d0e4f5;
+  color: #003e73;
 }
 
-/* Header and Content */
+/* Header and content */
 
 #header {
-  padding: 0.75em 1em;
+  padding: 3em 1em 0.75em;
   text-align: center;
-  margin-top: 1em;
 }
 
 #header .root {
@@ -38,6 +37,7 @@ body {
 
 #header .navigation a,
 #header .navigation span {
+  display: inline-block;
   margin: 0 0.5em;
 }
 
@@ -80,7 +80,7 @@ hr {
 /* Links */
 
 a {
-  color: #1c557c;
+  color: #003e73;
   text-decoration: underline;
 }
 
@@ -88,15 +88,17 @@ a:visited {
   color: inherit;
 }
 
-a:hover {
-  text-decoration: none;
-}
-
 a.footnote-ref {
   line-height: 0;
 }
 
-/* HTML definitions styled similar to LaTeX's \paragraph{...} */
+/* Definition lists styled as LaTeX's \paragraph{...} */
+
+dl:after {
+  content: "";
+  display: block;
+  clear: both;
+}
 
 dt {
   float: left;
@@ -127,14 +129,15 @@ dd > p:first-child {
   text-align: center;
 }
 
-/* Details and summary with smaller details and normal summary. */
+/* Details and summary */
 
 details {
   font-size: 90%;
 }
 
-details summary {
-  font-size: 111%;
+details > summary {
+  font-size: 111.111%;
+  cursor: pointer;
 }
 
 /* Note and contents */
@@ -247,18 +250,6 @@ tr:nth-child(even) {
   background: #f1f3f4;
 }
 
-/* Publications */
-
-.pubul {
-  border-bottom: 1px dotted;
-  padding-bottom: 2px;
-}
-
-p.hangpar {
-  text-indent: -1.75em;
-  padding-left: 1.75em;
-}
-
 /* Pandoc defaults */
 
 span.smallcaps {
@@ -320,14 +311,14 @@ ul.task-list {
 
 @media screen and (prefers-color-scheme: dark) {
   html {
-    color: #e5eaf0;
     background: #181c20;
+    color: #e5eaf0;
     color-scheme: dark;
     scrollbar-color: #8294a1 #23292f;
   }
 
   ::selection {
-    background: #a5cce5;
+    background: #c2e4ff;
     color: #181c20;
   }
 
@@ -344,7 +335,11 @@ ul.task-list {
   }
 
   a {
-    color: #9bd1f5;
+    color: #c2e4ff;
+  }
+
+  a:hover {
+    text-decoration: none;
   }
 
   #date, .date {
@@ -421,22 +416,32 @@ ul.task-list {
   html {
     color: #000;
     background: #fff;
+    overflow: visible;
   }
 
-  body {
+  #header {
+    padding: 0 0 1em;
+  }
+
+  #content {
     max-width: none;
     margin: 0;
     padding: 0;
   }
 
-  h1, h1.title, h2, h3,
+  h1, h2, h3,
   #header .root,
   #date, .date,
   figcaption, blockquote,
-  a, #note,
+  a, a:visited,
+  #note,
   code span.co,
   code span.cv {
     color: #000;
+  }
+
+  a {
+    text-decoration: underline;
   }
 
   #note, #contents,
