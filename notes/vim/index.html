@@ -24,11 +24,11 @@
 </div>
 <div id="content">
   <h1 class="title">Notes on Vim</h1>
-  <p>I’ve been using <a href="https://www.vim.org">Vim</a> as my sole text editor for almost two decades now. I use it to write all kinds of text—from code to papers to emails.</p>
+  <p>I’ve been using <a href="https://www.vim.org">Vim</a> as my sole text editor for almost two decades now. I use it to write all kinds of text and not just code. For email, I’ve been a happy <a href="https://en.wikipedia.org/wiki/Mutt_(email_client)">Mutt</a> user, which lets me compose messages in Vim. And <a href="https://duckduckgo.com/?q=overleaf+git+integration">Git integration</a> makes collaborative LaTeX on Overleaf bearable by letting me avoid its web editor altogether. My fingers have developed such muscle memory for vi-style keybindings that I’ve configured other programs I use to have them whenever possible.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
   <h1 id="stripping-tex-commands">Stripping TeX commands</h1>
   <p>Consider the following TeX snippet:</p>
   <pre><code>\hl{this is \emph{emphasized} and highlighted}</code></pre>
-  <p>Now, suppose you want to remove the outer highlight, i.e., <code>\hl{ ... }</code>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> One way to accomplish this in Vim is to use a rudimentary substitute command <code>:%s/\\hl{\(.*\)}/\1/g</code>, which would do the trick since Vim regular expressions are greedy. But this will not handle the following snippet</p>
+  <p>Now, suppose you want to remove the outer highlight, i.e., <code>\hl{ ... }</code>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> One way to accomplish this in Vim is to use a rudimentary substitute command <code>:%s/\\hl{\(.*\)}/\1/g</code>, which would do the trick since Vim regular expressions are greedy. But this will not handle the following snippet</p>
   <pre><code>\hl{this is \emph{emphasized}} and \hl{highlighted}</code></pre>
   <p>which would be turned into</p>
   <pre><code>this is \emph{emphasized}} and \hl{highlighted</code></pre>
@@ -54,7 +54,8 @@ command! -nargs=1 TeXStrip silent call s:texstrip(&lt;f-args&gt;)</code></pre>
   <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
   <hr />
   <ol>
-  <li id="fn1"><p>The <code>\hl{ ... }</code> highlight command used here is a nonstandard command, but it’s also defined by the <a href="https://www.ctan.org/pkg/soul">soul</a> package.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+  <li id="fn1"><p><a href="https://duckduckgo.com/?q=i3+window+manager">i3</a> and <a href="https://duckduckgo.com/?q=tmux+terminal+multiplexer">tmux</a> support vi-style keybindings out of the box. On Firefox, I use <a href="https://addons.mozilla.org/en-US/firefox/addon/vimium-ff/">Vimium</a> for link hints and navigation. I’ve grudgingly settled for Emacs-style keybindigs on <a href="https://github.com/manu-mannattil/dotfiles/tree/master/mathematica">Mathematica</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+  <li id="fn2"><p>The <code>\hl{ ... }</code> highlight command used here is a nonstandard command, but it’s also defined by the <a href="https://www.ctan.org/pkg/soul">soul</a> package.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
   </ol>
   </section>
   <p id="date">Last updated: 2022-04-22 12:00 EDT</p>

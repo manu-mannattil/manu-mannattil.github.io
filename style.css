@@ -96,6 +96,23 @@ a.footnote-ref {
   line-height: 0;
 }
 
+/* HTML definitions styled similar to LaTeX's \paragraph{...} */
+
+dt {
+  float: left;
+  clear: left;
+  font-weight: bold;
+  margin-right: 1em;
+}
+
+dd {
+  margin: 0 0 1em;
+}
+
+dd > p:first-child {
+  margin-top: 0;
+}
+
 /* Dates and footnotes */
 
 .footnotes {
