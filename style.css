@@ -84,6 +84,10 @@ a {
   text-decoration: underline;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 a:visited {
   color: inherit;
 }
@@ -336,10 +340,6 @@ ul.task-list {
 
   a {
     color: #c2e4ff;
-  }
-
-  a:hover {
-    text-decoration: none;
   }
 
   #date, .date {
