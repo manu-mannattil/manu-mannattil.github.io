@@ -3,13 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐦</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%90%A6%3C/text%3E%3C/svg%3E">
     <title>404: page not found</title>
     <style>
+      /* Base */
+
       html {
-        color: #252a30;
         background: #faf9f6;
+        color: #252a30;
         color-scheme: light;
+        overflow-y: scroll;
         scrollbar-color: #6c7b85 #eef2f4;
       }
 
@@ -26,9 +29,11 @@
       }
 
       ::selection {
-        background: #c4deef;
-        color: #183b52;
+        background: #d0e4f5;
+        color: #003e73;
       }
+
+      /* Headings */
 
       h1 {
         color: #202e38;
@@ -72,14 +77,14 @@
 
       @media screen and (prefers-color-scheme: dark) {
         html {
-          color: #e5eaf0;
           background: #181c20;
+          color: #e5eaf0;
           color-scheme: dark;
           scrollbar-color: #8294a1 #23292f;
         }
 
         ::selection {
-          background: #a5cce5;
+          background: #c2e4ff;
           color: #181c20;
         }
 
@@ -104,6 +109,26 @@
           background: #23292f;
         }
       }
+
+      /* Print */
+
+      @media print {
+        html {
+          background: #fff;
+          color: #000;
+          overflow: visible;
+        }
+
+        body {
+          max-width: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        h1, h2 {
+          color: #000;
+        }
+      }
     </style>
   </head>
   <body>
@@ -111,12 +136,16 @@
     <h2>page not found</h2>
     <h1>🐦</h1>
 
-    <p>This URL doesn’t point to a webpage.<br/>
+    <p>This URL doesn’t point to a webpage.<br>
     It probably never even pointed to an <em>ex</em>-webpage!</p>
-    <p>This URL is not loading.<br/>
+
+    <p>This URL is not loading.<br>
     It is not pining for the server.</p>
-    <p>It’s a stiff!<br/>Bereft of life, it rests in the address bar in peace.</p>
-    <p>Were it not for this 404 page,<br/>
+
+    <p>It’s a stiff!<br>
+    Bereft of life, it rests in the address bar in peace.</p>
+
+    <p>Were it not for this 404 page,<br>
     this URL would be pushing up daisies in your browser by now.</p>
   </body>
 </html>
